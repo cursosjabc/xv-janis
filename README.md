@@ -1,2 +1,512 @@
-# xv-janis
-Celebración de Janis
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mis XV Años - Janis Zoe</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- QRCode.js Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            pastelPink: {
+              light: '#FFF0F5',
+              DEFAULT: '#F4C2C2',
+              dark: '#E8A5A5'
+            },
+            pastelLavender: {
+              light: '#F3E5F5',
+              DEFAULT: '#E1BEE7',
+              dark: '#CE93D8'
+            },
+            pastelMint: {
+              light: '#E8F5E9',
+              DEFAULT: '#C8E6C9',
+              dark: '#A5D6A7'
+            },
+            pastelGold: {
+              DEFAULT: '#E5C158',
+              light: '#F7E7A9',
+              dark: '#C29B2C'
+            },
+            warmCream: '#FAF8F5'
+          },
+          fontFamily: {
+            cursive: ['"Great Vibes"', 'cursive'],
+            serif: ['"Playfair Display"', 'serif'],
+            sans: ['"Montserrat"', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Patrón sutil y elegante con toque de encaje/filigrana */
+    .bg-pattern {
+      background-color: #FAF8F5;
+      background-image: radial-gradient(#E1BEE7 0.8px, transparent 0.8px), radial-gradient(#F4C2C2 0.8px, #FAF8F5 0.8px);
+      background-size: 28px 28px;
+      background-position: 0 0, 14px 14px;
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(229, 193, 88, 0.3);
+    }
+
+    .btn-selected {
+      background-color: #F3E5F5 !important;
+      border-color: #CE93D8 !important;
+      color: #7B1FA2 !important;
+      font-weight: 700 !important;
+      transform: scale(1.02);
+      box-shadow: 0 4px 12px rgba(206, 147, 216, 0.3);
+    }
+
+    .gradient-pastel {
+      background: linear-gradient(135deg, #F4C2C2 0%, #E1BEE7 50%, #C8E6C9 100%);
+    }
+
+    .gradient-gold-subtle {
+      background: linear-gradient(135deg, #F7E7A9 0%, #E5C158 100%);
+    }
+  </style>
+</head>
+<body class="bg-warmCream text-gray-700 font-sans antialiased bg-pattern min-h-screen pb-16">
+
+  <!-- BOTÓN FLOTANTE: GUÍA DE PUBLICACIÓN EN CANVA / WEB -->
+  <button onclick="toggleModal('deployment-modal')" class="fixed bottom-4 right-4 z-50 bg-pastelLavender-dark text-white p-3.5 rounded-full shadow-2xl hover:bg-purple-600 transition-all duration-300 flex items-center space-x-2 text-xs font-semibold border-2 border-white">
+    <i class="fa-solid fa-cloud-arrow-up text-base"></i>
+    <span class="hidden md:inline">¿Cómo publicar en Canva / Web?</span>
+  </button>
+
+  <!-- CONTENEDOR PRINCIPAL -->
+  <main class="max-w-xl mx-auto px-4 pt-6">
+
+    <!-- HERO / PORTADA -->
+    <header class="glass-card rounded-3xl p-8 text-center shadow-xl relative overflow-hidden mb-6 border-2 border-pastelGold/40">
+      <div class="text-pastelPink-dark text-xl mb-1 opacity-80">
+        ✿ ❀ ✿
+      </div>
+      
+      <p class="text-xs uppercase tracking-widest text-pastelGold-dark font-bold">Mis Quince Años</p>
+      <h1 class="font-cursive text-6xl md:text-7xl text-purple-800 my-1 drop-shadow-sm">Janis Zoe</h1>
+      <p class="text-xs text-rose-400 italic font-serif mb-4">"Un día lleno de luz, sueños y la compañía de quienes más quiero"</p>
+
+      <!-- CUENTA REGRESIVA (COUNTDOWN TIMER) -->
+      <div class="my-5 bg-gradient-to-r from-pastelPink-light via-white to-pastelLavender-light rounded-2xl p-4 shadow-inner border border-pastelLavender">
+        <p class="text-[11px] uppercase tracking-wider text-purple-700 font-bold mb-2">
+          <i class="fa-solid fa-hourglass-half mr-1"></i> Tiempo Restante para el Gran Día:
+        </p>
+        <div id="countdown" class="grid grid-cols-4 gap-2 text-center">
+          <div class="bg-white/90 p-2 rounded-xl border border-pastelLavender-dark/30 shadow-sm">
+            <span id="cd-days" class="font-serif font-bold text-xl md:text-2xl text-purple-900 block">00</span>
+            <span class="text-[10px] text-gray-500 uppercase font-medium">Días</span>
+          </div>
+          <div class="bg-white/90 p-2 rounded-xl border border-pastelLavender-dark/30 shadow-sm">
+            <span id="cd-hours" class="font-serif font-bold text-xl md:text-2xl text-purple-900 block">00</span>
+            <span class="text-[10px] text-gray-500 uppercase font-medium">Horas</span>
+          </div>
+          <div class="bg-white/90 p-2 rounded-xl border border-pastelLavender-dark/30 shadow-sm">
+            <span id="cd-minutes" class="font-serif font-bold text-xl md:text-2xl text-purple-900 block">00</span>
+            <span class="text-[10px] text-gray-500 uppercase font-medium">Min</span>
+          </div>
+          <div class="bg-white/90 p-2 rounded-xl border border-pastelLavender-dark/30 shadow-sm">
+            <span id="cd-seconds" class="font-serif font-bold text-xl md:text-2xl text-purple-900 block">00</span>
+            <span class="text-[10px] text-gray-500 uppercase font-medium">Seg</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- DETALLES DEL EVENTO -->
+      <div class="grid grid-cols-3 gap-1 py-3 border-y border-pastelGold/30 text-xs font-medium text-gray-600">
+        <div>
+          <i class="fa-regular fa-calendar-check text-pastelGold-dark text-base block mb-1"></i>
+          <span class="font-bold text-gray-800">28 Febrero</span>
+          <span class="block text-[10px] text-gray-500">2027</span>
+        </div>
+        <div class="border-x border-pastelGold/30 px-1">
+          <i class="fa-solid fa-church text-pastelGold-dark text-base block mb-1"></i>
+          <span class="font-bold text-gray-800">Misa</span>
+          <span class="block text-[10px] text-gray-500">6:00 PM</span>
+        </div>
+        <div>
+          <i class="fa-solid fa-champagne-glasses text-pastelGold-dark text-base block mb-1"></i>
+          <span class="font-bold text-gray-800">Recepción</span>
+          <span class="block text-[10px] text-gray-500">8:00 PM</span>
+        </div>
+      </div>
+
+      <!-- PESTAÑAS DE NAVEGACIÓN -->
+      <div class="grid grid-cols-2 gap-2 p-1.5 mt-5 bg-warmCream rounded-2xl border border-pastelLavender text-xs font-semibold">
+        <button id="tab-general-btn" onclick="switchTab('general')" class="py-2.5 rounded-xl transition-all bg-pastelLavender-dark text-white shadow-sm">
+          <i class="fa-solid fa-ticket mr-1"></i> Invitado General
+        </button>
+        <button id="tab-padrinos-btn" onclick="switchTab('padrinos')" class="py-2.5 rounded-lg transition-all text-gray-600 hover:text-purple-700">
+          <i class="fa-solid fa-crown mr-1"></i> Área de Padrinos
+        </button>
+      </div>
+    </header>
+
+    <!-- SECCIÓN DE INVITADOS GENERALES -->
+    <section id="view-general" class="space-y-6">
+
+      <!-- TEST INTERACTIVO VIP -->
+      <div class="glass-card rounded-2xl p-6 shadow-lg border border-pastelPink">
+        <div class="flex items-center space-x-2 mb-3 text-purple-800">
+          <i class="fa-solid fa-wand-magic-sparkles text-lg text-pastelPink-dark"></i>
+          <h3 class="font-serif font-bold text-lg">Test de Ingreso VIP para Janis Zoe</h3>
+        </div>
+        <p class="text-xs text-gray-500 mb-4">Averigua tu estatus de ambiente antes de confirmar tu pase:</p>
+
+        <!-- Pregunta 1 -->
+        <div class="mb-4">
+          <p class="text-xs font-bold text-gray-700 mb-2">1. ¿Cuál es tu mejor actitud para la pista de baile?</p>
+          <div class="space-y-2 text-xs">
+            <button onclick="selectAnswer('g1', 'Bailarín Estrella', this)" class="g1-btn w-full text-left p-3 rounded-xl border border-gray-200 bg-white transition-all hover:border-pastelLavender-dark">
+              💃 Listo/a para bailar cumbia, jarana y pop sin parar.
+            </button>
+            <button onclick="selectAnswer('g1', 'Modo Brindis y Fotos', this)" class="g1-btn w-full text-left p-3 rounded-xl border border-gray-200 bg-white transition-all hover:border-pastelLavender-dark">
+              📸 Disfrutar la cena, las fotos de recuerdo y el brindar con Janis.
+            </button>
+          </div>
+        </div>
+
+        <!-- Pregunta 2 -->
+        <div>
+          <p class="text-xs font-bold text-gray-700 mb-2">2. ¿Qué le deseas a Janis Zoe en sus XV años?</p>
+          <div class="space-y-2 text-xs">
+            <button onclick="selectAnswer('g2', 'Felicidad Total', this)" class="g2-btn w-full text-left p-3 rounded-xl border border-gray-200 bg-white transition-all hover:border-pastelLavender-dark">
+              ✨ Que sea una noche inolvidable llena de bendiciones y alegría.
+            </button>
+            <button onclick="selectAnswer('g2', 'Diversión Infinita', this)" class="g2-btn w-full text-left p-3 rounded-xl border border-gray-200 bg-white transition-all hover:border-pastelLavender-dark">
+              🎉 ¡Celebrar a lo grande esta hermosa nueva etapa de su vida!
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- FORMULARIO RSVP GENERAL -->
+      <div class="glass-card rounded-2xl p-6 shadow-lg border border-pastelLavender">
+        <div class="flex items-center space-x-2 mb-4 text-purple-800">
+          <i class="fa-solid fa-paper-plane text-lg text-pastelLavender-dark"></i>
+          <h3 class="font-serif font-bold text-lg">Confirmación de Asistencia (RSVP)</h3>
+        </div>
+
+        <form onsubmit="processRSVP(event, 'general')" class="space-y-4 text-xs">
+          <div>
+            <label class="block font-semibold text-gray-700 mb-1">Nombre Completo o Familia *</label>
+            <input type="text" id="gen-name" required placeholder="Ej. Familia Gómez Pech / Carlos May" class="w-full p-3 rounded-xl border border-gray-300 focus:outline-none focus:border-pastelLavender-dark bg-white">
+          </div>
+
+          <div>
+            <label class="block font-semibold text-gray-700 mb-1">Pase Asignado y Acompañantes *</label>
+            <select id="gen-pass" required class="w-full p-3 rounded-xl border border-gray-300 focus:outline-none focus:border-pastelLavender-dark bg-white">
+              <option value="" disabled selected>Selecciona tu número de pase</option>
+              <option value="Pase Individual (1 Persona)">Pase Individual (1 Persona)</option>
+              <option value="Pase Doble (Yo + 1 Acompañante)">Pase Doble (Máximo 2 Personas)</option>
+              <option value="Pase Triple (Yo + 2 Acompañantes)">Pase Triple (Máximo 3 Personas)</option>
+            </select>
+            <p class="text-[10px] text-gray-400 mt-1 italic">* Cupo limitado reservado exclusivamente para la comodidad de los invitados.</p>
+          </div>
+
+          <button type="submit" class="w-full py-3.5 gradient-pastel text-purple-900 font-bold rounded-xl shadow-md hover:opacity-95 transition-all text-xs tracking-wide uppercase">
+            GENERAR MI PASE DIGITAL VIP ✨
+          </button>
+        </form>
+      </div>
+
+    </section>
+
+    <!-- SECCIÓN DE PADRINOS -->
+    <section id="view-padrinos" class="space-y-6 hidden">
+
+      <!-- CERTIFICACIÓN PARA PADRINOS -->
+      <div class="glass-card rounded-2xl p-6 shadow-lg border-2 border-pastelGold">
+        <div class="flex items-center space-x-2 mb-3 text-purple-900">
+          <i class="fa-solid fa-crown text-xl text-pastelGold-dark"></i>
+          <h3 class="font-serif font-bold text-lg">Certificación de Padrinos de Honor</h3>
+        </div>
+        <p class="text-xs text-gray-600 mb-4 leading-relaxed">
+          Para Janis Zoe y nuestra familia es un honor entrañable contar con su presencia y bendición en este día especial.
+        </p>
+
+        <!-- Pregunta Padrino 1 -->
+        <div class="mb-4">
+          <p class="text-xs font-bold text-gray-700 mb-2">1. ¿Aceptan acompañar y guiar a Janis Zoe con su cariño y ejemplo?</p>
+          <div class="space-y-2 text-xs">
+            <button onclick="selectAnswer('p1', 'Honor Aceptado', this)" class="p1-btn w-full text-left p-3 rounded-xl border border-gray-200 bg-white transition-all hover:border-pastelGold">
+              👑 Sí, aceptamos con todo el corazón y profunda alegría.
+            </button>
+            <button onclick="selectAnswer('p1', 'Compromiso de Amor', this)" class="p1-btn w-full text-left p-3 rounded-xl border border-gray-200 bg-white transition-all hover:border-pastelGold">
+              ❤️ Por supuesto, siempre contará con nuestro apoyo y cariño.
+            </button>
+          </div>
+        </div>
+
+        <!-- Pregunta Padrino 2 -->
+        <div>
+          <p class="text-xs font-bold text-gray-700 mb-2">2. ¿Listos para compartir la alegría y el brindis de honor?</p>
+          <div class="space-y-2 text-xs">
+            <button onclick="selectAnswer('p2', 'Listos para el Brindis', this)" class="p2-btn w-full text-left p-3 rounded-xl border border-gray-200 bg-white transition-all hover:border-pastelGold">
+              🥂 Listísimos para acompañarla en este hito tan importante.
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- FORMULARIO PADRINOS -->
+      <div class="glass-card rounded-2xl p-6 shadow-lg border border-pastelLavender">
+        <div class="flex items-center space-x-2 mb-4 text-purple-800">
+          <i class="fa-solid fa-heart text-lg text-rose-400"></i>
+          <h3 class="font-serif font-bold text-lg">Registro de Padrinos</h3>
+        </div>
+
+        <form onsubmit="processRSVP(event, 'padrinos')" class="space-y-4 text-xs">
+          <div>
+            <label class="block font-semibold text-gray-700 mb-1">Nombres de los Padrinos *</label>
+            <input type="text" id="pad-name" required placeholder="Ej. Tíos Roberto Chan y Patricia Moguel" class="w-full p-3 rounded-xl border border-gray-300 focus:outline-none focus:border-pastelLavender-dark bg-white">
+          </div>
+
+          <div>
+            <label class="block font-semibold text-gray-700 mb-1">Tipo de Padrinazgo *</label>
+            <select id="pad-type" required class="w-full p-3 rounded-xl border border-gray-300 focus:outline-none focus:border-pastelLavender-dark bg-white">
+              <option value="" disabled selected>Selecciona el tipo de padrinazgo</option>
+              <option value="Padrinos de Velación / Honor">Padrinos de Velación / Honor</option>
+              <option value="Padrinos de Brindis">Padrinos de Brindis</option>
+              <option value="Padrinos de Medalla / Anillo">Padrinos de Medalla / Anillo</option>
+              <option value="Padrinos de Pastel / Ramos">Padrinos de Pastel / Ramos</option>
+              <option value="Padrinos de Recuerdos">Padrinos de Recuerdos</option>
+            </select>
+          </div>
+
+          <button type="submit" class="w-full py-3.5 gradient-gold-subtle text-purple-950 font-bold rounded-xl shadow-md hover:opacity-95 transition-all text-xs tracking-wide uppercase">
+            OBTENER PASE HONORÍFICO Y CONFIRMAR 👑
+          </button>
+        </form>
+      </div>
+
+    </section>
+
+    <!-- PASE DE ENTRADA VIP GENERADO (RESULTADO DINÁMICO) -->
+    <section id="pass-modal-container" class="hidden my-8">
+      <div class="bg-white rounded-3xl p-6 shadow-2xl border-4 border-pastelLavender relative overflow-hidden text-center">
+        <!-- Banner Superior -->
+        <div class="gradient-pastel text-purple-900 py-1.5 px-6 font-bold text-[11px] uppercase tracking-widest rounded-full inline-block mb-3 shadow-sm">
+          ✨ Pase de Acceso Confirmado ✨
+        </div>
+
+        <p class="text-xs text-gray-400 uppercase tracking-widest">XV Años de Janis Zoe</p>
+        <h3 class="font-serif font-bold text-2xl text-purple-950 my-1" id="pass-display-name">Familia Gómez</h3>
+        <p class="text-xs text-pastelPink-dark font-bold uppercase tracking-wider" id="pass-display-type">Pase Doble (2 Personas)</p>
+
+        <!-- Estatus del Test -->
+        <div class="bg-warmCream rounded-xl p-3 my-4 border border-pastelLavender/50 text-xs text-left space-y-1">
+          <p class="text-gray-500 font-medium text-[11px]">📋 Estatus de Verificación:</p>
+          <p class="text-gray-700"><strong>Perfil:</strong> <span id="pass-display-test" class="text-purple-700 font-semibold">Confirmado con Entusiasmo</span></p>
+          <p class="text-gray-700"><strong>Código de Confirmación:</strong> <span id="pass-display-code" class="font-mono text-xs text-purple-800">JZ-2027-FEB</span></p>
+        </div>
+
+        <!-- Código QR -->
+        <div class="flex justify-center my-3">
+          <div id="qrcode" class="p-3 bg-white border-2 border-pastelLavender rounded-2xl shadow-inner"></div>
+        </div>
+        <p class="text-[10px] text-gray-400">Presenta este código QR digital a tu llegada el 28 de Febrero de 2027.</p>
+
+        <!-- Botones de Acción / WhatsApp -->
+        <div class="mt-5 flex flex-col space-y-2">
+          <button onclick="shareWhatsApp()" class="w-full py-3 bg-emerald-500 text-white rounded-xl text-xs font-bold hover:bg-emerald-600 transition-all shadow-md flex items-center justify-center space-x-2">
+            <i class="fa-brands fa-whatsapp text-base"></i>
+            <span>Enviar Confirmación por WhatsApp</span>
+          </button>
+          <button onclick="window.print()" class="w-full py-2.5 bg-gray-800 text-white rounded-xl text-xs font-semibold hover:bg-black transition-all">
+            <i class="fa-solid fa-print mr-1"></i> Imprimir o Guardar Pase
+          </button>
+          <button onclick="resetForm()" class="w-full py-2 text-xs text-gray-500 hover:text-gray-800 underline">
+            Confirmar otra respuesta
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODAL DE GUÍA: CANVA & VERCEL -->
+  <div id="deployment-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 hidden backdrop-blur-sm">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border-2 border-pastelLavender max-h-[90vh] overflow-y-auto relative">
+      <button onclick="toggleModal('deployment-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-xl font-bold">
+        &times;
+      </button>
+
+      <div class="flex items-center space-x-2 text-purple-900 mb-4">
+        <i class="fa-solid fa-rocket text-2xl text-pastelPink-dark"></i>
+        <h3 class="font-serif font-bold text-lg">¿Cómo publicar esta web gratis?</h3>
+      </div>
+
+      <!-- CANVA WEBSITES -->
+      <div class="bg-warmCream border border-pastelPink rounded-2xl p-4 mb-4">
+        <h4 class="font-bold text-xs text-purple-900 flex items-center">
+          <i class="fa-solid fa-paintbrush text-pastelPink-dark mr-2"></i> Opción 1: Publicar en Canva
+        </h4>
+        <ol class="list-decimal list-inside text-[11px] text-gray-600 mt-2 space-y-1.5 leading-relaxed">
+          <li>Crea un diseño de <strong>"Sitio Web"</strong> en Canva con tonos pastel.</li>
+          <li>Usa el elemento <strong>"Insertar / Embed"</strong> e ingresa el enlace de este sitio web o de tu Google Form.</li>
+          <li>Haz clic en <strong>"Publicar como sitio web"</strong> en Canva con tu propio enlace gratuito.</li>
+        </ol>
+      </div>
+
+      <!-- VERCEL / GITHUB -->
+      <div class="bg-warmCream border border-pastelLavender rounded-2xl p-4 mb-4">
+        <h4 class="font-bold text-xs text-purple-900 flex items-center">
+          <i class="fa-solid fa-globe text-purple-500 mr-2"></i> Opción 2: Publicar en Vercel o Netlify
+        </h4>
+        <ol class="list-decimal list-inside text-[11px] text-gray-600 mt-2 space-y-1.5 leading-relaxed">
+          <li>Guarda este código como <code class="bg-white px-1 border rounded">index.html</code>.</li>
+          <li>Súbelo gratis a <strong>Vercel.com</strong> o <strong>Netlify.com</strong> arrastrando el archivo.</li>
+          <li>¡Obtendrás un link rápido como <code class="text-purple-700 font-semibold">janiszoe-xv.vercel.app</code> listo para compartir en WhatsApp!</li>
+        </ol>
+      </div>
+
+      <button onclick="toggleModal('deployment-modal')" class="w-full py-3 bg-pastelLavender-dark text-white font-bold rounded-xl text-xs hover:bg-purple-600 transition-all">
+        ¡Entendido!
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // Variables de Estado
+    const answers = { g1: '', g2: '', p1: '', p2: '' };
+    let currentPassData = { name: '', pass: '', test: '' };
+
+    // --- CUENTA REGRESIVA PARA FEBRERO 28, 2027 ---
+    const eventDate = new Date("Feb 28, 2027 18:00:00").getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = eventDate - now;
+
+      if (distance < 0) {
+        document.getElementById("countdown").innerHTML = "<p class='col-span-4 text-purple-800 font-bold text-sm'>¡Hoy es el Gran Día de Janis Zoe! 🎉</p>";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById("cd-days").innerText = days < 10 ? '0' + days : days;
+      document.getElementById("cd-hours").innerText = hours < 10 ? '0' + hours : hours;
+      document.getElementById("cd-minutes").innerText = minutes < 10 ? '0' + minutes : minutes;
+      document.getElementById("cd-seconds").innerText = seconds < 10 ? '0' + seconds : seconds;
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // Cambiar Pestañas
+    function switchTab(type) {
+      const viewGeneral = document.getElementById('view-general');
+      const viewPadrinos = document.getElementById('view-padrinos');
+      const btnGeneral = document.getElementById('tab-general-btn');
+      const btnPadrinos = document.getElementById('tab-padrinos-btn');
+
+      if (type === 'general') {
+        viewGeneral.classList.remove('hidden');
+        viewPadrinos.classList.add('hidden');
+        btnGeneral.className = "py-2.5 rounded-xl transition-all bg-pastelLavender-dark text-white shadow-sm font-semibold";
+        btnPadrinos.className = "py-2.5 rounded-lg transition-all text-gray-600 hover:text-purple-700";
+      } else {
+        viewGeneral.classList.add('hidden');
+        viewPadrinos.classList.remove('hidden');
+        btnPadrinos.className = "py-2.5 rounded-xl transition-all bg-pastelLavender-dark text-white shadow-sm font-semibold";
+        btnGeneral.className = "py-2.5 rounded-lg transition-all text-gray-600 hover:text-purple-700";
+      }
+    }
+
+    // Seleccionar Opciones en los Tests
+    function selectAnswer(questionKey, value, btnElement) {
+      answers[questionKey] = value;
+      const parent = btnElement.parentElement;
+      const buttons = parent.querySelectorAll('button');
+      buttons.forEach(btn => btn.classList.remove('btn-selected'));
+      btnElement.classList.add('btn-selected');
+    }
+
+    // Procesar Confirmación
+    function processRSVP(event, mode) {
+      event.preventDefault();
+
+      let name = '';
+      let passType = '';
+      let testSummary = '';
+
+      if (mode === 'general') {
+        name = document.getElementById('gen-name').value;
+        passType = document.getElementById('gen-pass').value;
+        testSummary = `${answers.g1 || 'Actitud Fiesta'} / ${answers.g2 || 'Entusiasmo Total'}`;
+      } else {
+        name = document.getElementById('pad-name').value;
+        passType = document.getElementById('pad-type').value;
+        testSummary = `Certificación Padrinos: ${answers.p1 || 'Aceptado con Honor'}`;
+      }
+
+      currentPassData = { name, pass: passType, test: testSummary };
+
+      // Actualizar vista del pase
+      document.getElementById('pass-display-name').innerText = name;
+      document.getElementById('pass-display-type').innerText = passType;
+      document.getElementById('pass-display-test').innerText = testSummary;
+
+      const randomCode = 'JZ-28FEB-' + Math.floor(1000 + Math.random() * 9000);
+      document.getElementById('pass-display-code').innerText = randomCode;
+
+      // Código QR
+      const qrContainer = document.getElementById('qrcode');
+      qrContainer.innerHTML = '';
+      new QRCode(qrContainer, {
+        text: `XV-JANIS-ZOE:${name}|PASE:${passType}|CODIGO:${randomCode}`,
+        width: 120,
+        height: 120,
+        colorDark : "#6B21A8",
+        colorLight : "#ffffff",
+        correctLevel : QRCode.CorrectLevel.H
+      });
+
+      // Mostrar pase
+      const passModal = document.getElementById('pass-modal-container');
+      passModal.classList.remove('hidden');
+      passModal.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Enviar confirmación por WhatsApp
+    function shareWhatsApp() {
+      const text = `¡Hola! Confirmo mi asistencia para los XV Años de Janis Zoe ✨%0A%0A👤 *Nombre:* ${encodeURIComponent(currentPassData.name)}%0A🎟️ *Pase:* ${encodeURIComponent(currentPassData.pass)}%0A📋 *Estatus:* ${encodeURIComponent(currentPassData.test)}%0A%0A¡Nos vemos el 28 de Febrero de 2027! 🎉`;
+      window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
+    }
+
+    function resetForm() {
+      document.getElementById('pass-modal-container').classList.add('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function toggleModal(modalId) {
+      const modal = document.getElementById(modalId);
+      modal.classList.toggle('hidden');
+    }
+  </script>
+</body>
+</html>
